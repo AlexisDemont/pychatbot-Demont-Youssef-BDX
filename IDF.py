@@ -4,7 +4,6 @@
 # Le temps d'execution de la fonction IDF se situe entre 0.0015 et 0.003 secondes. 
 
 from math import log10
-import time
 from basicsFunctions import list_of_files
 
 
