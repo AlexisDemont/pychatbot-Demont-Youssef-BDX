@@ -1,5 +1,5 @@
 # fonction dont le parametre est chaine de chr qui retourne un dictionnaire {nombreOccurence : mot}
-def CalculateOccurenceITF(string):
+def CalculateOccurenceTF(string):
     nb_occurence = {}
     words =  string.split()
     for word in words:
