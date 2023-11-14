@@ -1,15 +1,5 @@
 # Extraire les noms des présidents à partir des fichiers texte fournis
-
-import os
-
-# Fonction definie pour extraire les noms des fichiers à partir des fichiers
-def list_of_files(directory, extension):
-    files_names = []
-    for filename in os.listdir(directory):
-        if filename.endswith(extension):
-            files_names.append(filename)
-    return files_names
-
+from basicsFunctions import list_of_files
 
 # Fonction definie pour extraire que les noms des presidents ( sans Nomination_"".txt)
 def list_of_names():
@@ -42,6 +32,3 @@ def list_of_names_fillnames():
             if president == name:
                 presidents_firstname_name.add(dict_names_fillnames[name] + " " + name)
     return presidents_firstname_name
-
-
-print(list_of_names_fillnames())
