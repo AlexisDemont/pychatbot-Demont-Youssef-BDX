@@ -13,7 +13,7 @@ def TfIdf_Matrice(directory='./cleaned/'):
     for word in allWords:
         line = [word]
         for file in list_files:
-            tf = files_tf[file]  # Use the pre-read file content
+            tf = files_tf[file]
             if word not in tf:
                 tf[word] = 0
             line.append(tf[word] * idf[word])
