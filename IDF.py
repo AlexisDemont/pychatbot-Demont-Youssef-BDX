@@ -4,15 +4,13 @@
 # Le temps d'execution de la fonction IDF se situe entre 0.0015 et 0.003 secondes. 
 
 from math import log10
-from basicsFunctions import list_of_files
-
+from basicsFunctions import list_of_files,file_reader
 
 def create_file_words_dict(directory="./cleaned/"):
     list_files = list_of_files(directory, ".txt")
     file_words = {}
     for file in list_files:
-        with open(directory + file, "r") as f:
-            words_in_file = set(word for line in f for word in line.split())
+        words_in_file = set(file_reader(file,directory).split())
         file_words[file] = words_in_file
     return file_words
 

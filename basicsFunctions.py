@@ -16,3 +16,7 @@ def clean_folder():
     for name in files_names:
         os.remove(directory + name)
     return True
+
+def file_reader(file,directory):
+    with open(directory+file, 'r') as f:
+        return ''.join(f.readlines())
