@@ -1,31 +1,8 @@
 import os
 import re
+from basicsFunctions import list_of_files
 
-
-# à remplacer par appel de fonction
-
-
-def list_of_files(directory, extension):
-    files_names = []
-    for filename in os.listdir(directory):
-        if filename.endswith(extension):
-            files_names.append(filename)
-    return files_names
-
-
-def clean_folder():
-    directory = ('./cleaned')
-    extension = 'txt'
-    files_names = list_of_files(directory, extension)
-    for name in files_names:
-        os.remove(directory + name)
-    return True
-
-
-# ------------------------
-def speeches_to_lowercase():
-    directory = ('./speeches')
-    extension = 'txt'
+def speeches_to_lowercase(directory, extension):
     files_names = list_of_files(directory, extension)
     for name in files_names:
         newName = name.split('.')[0] + '_lowercased.txt'
@@ -36,9 +13,7 @@ def speeches_to_lowercase():
     return True
 
 
-def lowercase_to_clean():
-    directory = ('./cleaned/')
-    extension = 'txt'
+def lowercase_to_clean(directory='./cleaned/', extension='.txt'):
     files_names = list_of_files(directory, extension)
     for name in files_names:
         newName = name.replace('lowercased', 'cleaned')
@@ -54,5 +29,7 @@ def lowercase_to_clean():
             os.remove(directory + name)
     return True
 
-speeches_to_lowercase()
-lowercase_to_clean()
+def speechesCleaner(directory='./speeches/', extension='.txt'):
+    speeches_to_lowercase(directory, extension)
+    lowercase_to_clean()
+    return True
