@@ -6,6 +6,7 @@ from IDF import CalculateIDF, create_file_words_dict, RegroupAllWords
 def TfIdf_Matrice(directory='./cleaned/'):
     list_files = list_of_files('./cleaned', '.txt')
     matrice = [[files.replace('_cleaned', '') for files in list_files]]
+    matrice[0].insert(0, '')
     idf = CalculateIDF()
     file_words = create_file_words_dict()
     allWords = RegroupAllWords(file_words)
