@@ -15,12 +15,13 @@ def SpeakerOfWord (word):
     return speakers
 
 #Comparaison entre les clés et return le president qui prononce le mot le plus de fois
-def WordMostSpoken (liste):
+def WordMostSpoken ():
     speakers = SpeakerOfWord(word)
     maxi = 0
     for key in speakers.keys():
+        print(key)
         if speaker[key] > maxi :
             maxi = speaker[key]
             president = key
-    return president 
+    return president
 
