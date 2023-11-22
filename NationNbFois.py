@@ -1,27 +1,34 @@
 #  Indiquer le(s) nom(s) du (des) président(s) qui a (ont) parlé de la « Nation » et celui qui l’a répété le plus de fois
-from TfIdf import TfIdf_Matrice
+from president import list_of_names_fillnames
+from basicsFunctions import list_of_files, file_reader
+from TF import CalculateOccurenceWords
 # dictionnaire {president : nbFoisMot}
 def SpeakerOfWord (word):
-    Matrice = TfIdf_Matrice(directory='./cleaned/')
-    trouve = True
-    i = 0
-    speakers = {}
-    While not trouve :
-        if word == Matrice[i][0]:
-            trouve = True
-            for j in range (1,len(Matrice[i])-1):
-                if Matrice[i][j] != 0 :
-                    speakers[Matrice[0][j]] = Matrice[i][j]
-    return speakers
+    word = word.lower()
+    directory = './cleaned/'
+    list_files = list_of_files('./cleaned', '.txt')
+    files_tf = {file: CalculateOccurenceWords(file_reader(file, directory)) for file in list_files}
+    speaker={}
+    presidents = list_of_names_fillnames()
+    for filename in files_tf.keys():
+        if word in files_tf[filename]:
+            for president in presidents:
+                if president.split(' ')[1] in filename:
+                    if president in speaker:
+                        speaker[president] += files_tf[filename][word]
+                    else:
+                        speaker[president] = files_tf[filename][word]
+    return(speaker)
 
-#Comparaison entre les clés et return le president qui prononce le mot le plus de fois
-def WordMostSpoken ():
+
+def WordMostSpoken (word):
     speakers = SpeakerOfWord(word)
     maxi = 0
+    president=None
     for key in speakers.keys():
-        print(key)
-        if speaker[key] > maxi :
-            maxi = speaker[key]
+        if speakers[key] > maxi :
+            maxi = speakers[key]
             president = key
+    if president == None:
+        return "Aucun président n'a utilisé ce mot"
     return president
-
