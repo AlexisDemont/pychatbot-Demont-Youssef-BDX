@@ -9,14 +9,14 @@ def list_of_files(directory, extension):
     return files_names
 
 # Fonction pour vider le dossier cleaned
-def clean_folder():
-    directory = ('./cleaned')
-    extension = 'txt'
+def clean_folder(directory='./cleaned', extension='txt'):
     files_names = list_of_files(directory, extension)
     for name in files_names:
         os.remove(directory + name)
     return True
 
 def file_reader(file,directory):
+    if directory[-1] != '/':
+        directory += '/'
     with open(directory+file, 'r') as f:
         return ''.join(f.readlines())
