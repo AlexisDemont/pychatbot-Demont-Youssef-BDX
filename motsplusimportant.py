@@ -1,21 +1,22 @@
-# les mots dont le score est eleve
-def HighestScore():
-    MaxiScores = [] # liste des scores max de chaque mot
-    ImportantWords = [] # en parallele les mots correspondants
-    for word in matrice : # pour chaque mot (ligne) de la matrice dans tfidf
-        ScoreMax = 0
-        for ScoreWord in word : # pour chaque score de ce mot dans chaque doc
-            if ScoreWord > ScoreMax : # si score superieur au max trouvé alors
-                ScoreMax = ScoreWord
-        if ScoreMax != 0 :  # si le score max est different de zero donc on le considere important
-            MaxiScores.append(ScoreMax)
-            ImportantWords.append(word)
-    ScoreMax = 0 # comparer les scores pour connaitre le score le + eleve
-    for Score in MaxiScores :
-        if Score > ScoreMax :
-            ScoreMax = Score
-    MostImportant = [] # liste de ou des mots dont le score est le max et donc sont importants
-    for i in range (len(MaxiScores)):
-        if MaxiScores[i] == ScoreMax :
-            MostImportant.updates(ImportantWords[i])
-    return MostImportant
+from TfIdf import TfIdf_Matrice
+def mostImportantWord(directory="./cleaned/"):
+    """
+    Fonction qui retourne un set des mots dont la somme des scores TfIdf pour l'ensemble des textes est la plus élevée
+    :param: répertoire des fichiers textes nettoyés
+    :return: set des mots les plus importants sur l'ensemble des textes
+    :rtype: set
+    """
+    matrice = TfIdf_Matrice(directory)
+    mostImportantsWords = set()
+    highestScore=0
+    for i in range(1, len(matrice)):
+        currentWord = matrice[i][0]
+        sumScore=0
+        for j in range(1, len(matrice[i])):
+            sumScore += matrice[i][j]
+        if sumScore > highestScore:
+            highestScore = sumScore
+            mostImportantsWords = {str(currentWord)}
+        elif sumScore == highestScore:
+            mostImportantsWords.add(str(currentWord))
+    return mostImportantsWords
