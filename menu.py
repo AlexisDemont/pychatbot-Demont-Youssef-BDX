@@ -1,6 +1,10 @@
 # Menu je ne vois pas les autres fonctions
 from motsnonimportants import NotImportantWord
 from motsplusimportant import mostImportantWord
+from NationNbFois import SpeakerOfWord
+from NationNbFois import WordMostSpoken
+
+
 
 print("Pour afficher les mots les moins importants dans le document , Tapez 0")
 print("Pour afficher les mots ayant le score TD-IDF le plus élevé , Tapez 1")
@@ -16,10 +20,10 @@ if InputValue == 0 :
 elif InputValue == 1 :
     print("Les mots ayant le score TD-IDF le plus élevé sont :"mostImportantWord(directory="./cleaned/"))
 elif InputValue == 2 :
-    print("Les mots les plus répétés par le président Chirac sont :")
+    print("Les mots les plus répétés par le président Chirac sont :",)
 elif InputValue == 3 :
-    print("Les noms des présidents qui ont parlé de la Nation et celui qui l'a répété le plus de fois :")
+    print("Les noms des présidents qui ont parlé de la Nation et celui qui l'a répété le plus de fois :",SpeakerOfWord("Nation"))
 elif InputValue == 4 :
-    print("Le premier president à parler du climat et/ou l'écologie est :")
+    print("Le premier president à parler de l'écologie est :", WordMostSpoken("ecologie "),"et du climat est :", WordMostSpoken("climat"))
 elif InputValue == 5 :
-    print("Les mots évoqués par tous les présidents :")
+    print("Les mots évoqués par tous les présidents :",)
