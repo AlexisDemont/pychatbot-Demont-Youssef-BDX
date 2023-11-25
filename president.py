@@ -12,8 +12,12 @@ dict_names_fillnames = {
     "Sarkozy": "Nicolas",
 }
 
-
-# Fonction definie pour extraire que les noms des presidents ( sans Nomination_"".txt)
+"""
+    Fonction qui retourne la liste des noms des presidents à partir de la liste list_of_files importée de basics_functions
+    :param: pas de paramètre 
+    :return: liste de noms de tous les presidents dans speeches
+    :rtype: liste
+    """
 def list_of_names():
     directory = "./speeches"
     files_names = list_of_files(directory, "txt")
@@ -28,7 +32,12 @@ def list_of_names():
     return presidents_names
 
 
-# Fonction pour associer à chaque nom son prénom
+"""
+    Fonction qui retourne un set des prenoms noms des presidents
+    :param: pas de parametre 
+    :return: set des prenoms noms des presidents
+    :rtype: set
+    """
 
 
 def list_of_names_fillnames():
