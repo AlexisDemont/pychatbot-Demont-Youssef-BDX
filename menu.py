@@ -26,4 +26,4 @@ elif InputValue == 3 :
 elif InputValue == 4 :
     print("Le premier president à parler de l'écologie est :", WordMostSpoken("ecologie "),"et du climat est :", WordMostSpoken("climat"))
 elif InputValue == 5 :
-    print("Les mots évoqués par tous les présidents :",)
+    print("Les mots évoqués par tous les présidents :")
