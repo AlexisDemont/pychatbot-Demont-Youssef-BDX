@@ -2,16 +2,6 @@ from basicsFunctions import file_reader, list_of_files
 from president import extractTheNameFromThis
 
 
-dateText = {
-    "Giscard dEstaing": 1974,
-    "Mitterrand": 1981,
-    "Chirac1": 1995,
-    "Chirac2": 2002,
-    "Sarkozy": 2007,
-    "Hollande": 2012,
-    "Macron": 2017,
-}
-
 
 def findWhoSaidFirstThis(word, dateText, directory="./cleaned/"):
     """Find who said first this word
@@ -36,5 +26,6 @@ def findWhoSaidFirstThis(word, dateText, directory="./cleaned/"):
                     elif dateText[key] < dateText[theFirstOne[0]]:
                         theFirstOne = (key, dateText[key])
     if found:
+        year=theFirstOne[1]
         theFirstOne = extractTheNameFromThis(theFirstOne[0])
-    return theFirstOne
+    return theFirstOne,year
