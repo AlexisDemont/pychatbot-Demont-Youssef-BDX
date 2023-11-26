@@ -3,31 +3,46 @@ from math import log10
 
 def list_of_files(directory, extension):
     """
-    Fonction qui retourne une liste dont les elements sont les noms des fichiers qui se trouve dans repertoire et se terminent par des extensions precis 
-    :param: répertoire et extension
-    :return: liste des noms des fichiers 
-    :rtype: liste
+    Function that returns a list of file names in the directory with a specific extension
+    
+    Parameters:
+        directory (str): Path to the directory
+        extension (str): Extension of the files
+        
+    Returns:
+        files (list): List of file names
+        
     """
     return [filename for filename in os.listdir(directory) if filename.endswith(extension)]
 
 def clean_folder(directory='./cleaned', extension='txt'):
     """
-    Fonction qui retourne vrai lorsque la suppression de tous les fichiers de la liste 'list_of_files' dans le repertoire cleaned et dont l'extension (txt), a été effectuée 
-    :param: répertoire des fichiers textes nettoyés, et extension (txt)
-    :return: True lorsque la suppression de tous les fichers dans la liste files_name dans le repertoire cleaned (txt)
-    :rtype: Booléen
+    Function that deletes all files in the 'cleaned' directory with a specific extension
+    
+    Parameters:
+        directory (str): Path to the directory of cleaned files
+        extension (str): Extension of the files
+        
+    Returns:
+        None
+        
     """
     for name in list_of_files(directory, extension):
         os.remove(directory + name)
     return
 
 
-def file_reader(file,directory):
+def file_reader(file, directory):
     """
-    Fonction qui retourne le contenu de tout le fichier en une seule chaine de caracteres 
-    :param: le fichier et son répertoire
-    :return: une chaine de caracteres qui represente tout le contenu du fichier 
-    :rtype: string ( chaine de caracteres )
+    Function that reads the content of a file and returns it as a string
+    
+    Parameters:
+        file (str): Name of the file
+        directory (str): Path to the directory
+        
+    Returns:
+        content (str): Content of the file as a string
+        
     """
     if directory[-1] != '/':
         directory += '/'
@@ -37,34 +52,42 @@ def file_reader(file,directory):
 
 def calculate_occurence_words(string):
     """
-    Fonction qui retourne un dictionnaire dont la clé est le mot et sa valeur est le nombre d'occurence pour chaque fichier
-    :param: une chaine de caractere ( elle represente tout le contenu du fichier apres nettoyage )
-    :return: dictionnaire {mot : nbOccurence}
-    :rtype: dictionnaire
+    Function that calculates the occurrence of each word in a string and returns a dictionary
+    
+    Parameters:
+        string (str): Input string
+        
+    Returns:
+        occurences (dict): Dictionary with word as key and occurrence count as value
+        
     """
-    nb_occurence = {}
+    occurences = {}
     for word in string.split():
-        if word not in nb_occurence:
-            nb_occurence[word] = 1
+        if word not in occurences:
+            occurences[word] = 1
         else:
-            nb_occurence[word] += 1
-    return nb_occurence
+            occurences[word] += 1
+    return occurences
 
 
-def TfIdf_Matrice(directory='./cleaned/'):
+def tfidf_matrice(directory='./cleaned/'):
     """
-    Fonction qui retourne une matrice TF-IDF dont chaque ligne represente un mot et son score TF-IDF dans chaque fichier (en colonne) 
-    :param: répertoire des fichiers textes nettoyés 
-    :return: Matrice (ligne = mot , colonne = fichier, et score TF-IDF pour chaque ligne dans chaque colonne)
-    :rtype: Matrice
+    Function that returns a TF-IDF matrix where each row represents a word and its TF-IDF score in each file (in columns)
+    
+    Parameters:
+        directory (str): Path to the directory of cleaned text files
+        
+    Returns:
+        matrice (list): TF-IDF matrix where each row represents a word and its TF-IDF score in each file (in columns)
+        
     """
     list_files = list_of_files(directory, '.txt')
     matrice = [[files.replace('_cleaned', '') for files in list_files]]
     matrice[0].insert(0, '')
-    idf = CalculateIDF()
-    allWords = set().union(*create_file_words_dict().values())
+    idf = calculate_idf()
+    all_words = set().union(*create_file_words_dict().values())
     files_tf = {file: calculate_occurence_words(file_reader(file, directory)) for file in list_files}
-    for word in allWords:
+    for word in all_words:
         line = [word]
         for file in list_files:
             tf = files_tf[file]
@@ -77,10 +100,14 @@ def TfIdf_Matrice(directory='./cleaned/'):
 
 def create_file_words_dict(directory="./cleaned/"):
     """
-    Fonction qui retourne un dictionnaire { fichier : set(mots dans ce fichier}.
-    :param: répertoire des fichiers textes nettoyés
-    :return: dictionnaire dont la clé est le ficheir et la valeur de cette clé est un set de tous les mots contenant dans ce fichier
-    :rtype: dictionnaire
+    Function that creates a dictionary where the keys are file names and the values are sets of words in each file
+    
+    Parameters:
+        directory (str): Path to the directory of cleaned text files
+        
+    Returns:
+        file_words (dict): Dictionary where keys are file names and values are sets of words
+        
     """
     list_files = list_of_files(directory, ".txt")
     file_words = {}
@@ -90,21 +117,26 @@ def create_file_words_dict(directory="./cleaned/"):
     return file_words
 
 
-def CalculateIDF(directory="./cleaned/"):
+def calculate_idf(directory="./cleaned/",extension=".txt"):
     """
-    Fonction qui retourne un dictionnaire {mot : score IDF}
-    :param: répertoire des fichiers textes nettoyés
-    :return: dictionnaire dont les clés sont tous les mots dans tous les fichiers et la valeur de chaque clé est le score IDF 
-    :rtype: dictionnaire 
+    Function that calculates the IDF score for each word in all files and returns a dictionary
+    
+    Parameters:
+        directory (str): Path to the directory of cleaned text files
+        extension (str): Extension of the files
+        
+    Returns:
+        idf_scores (dict): Dictionary where keys are words and values are IDF scores
+        
     """
     file_words=create_file_words_dict(directory)
-    list_files = list_of_files(directory, ".txt")
-    allWords = set().union(*file_words.values())
-    nb_IDF_words = {}
-    for ele in allWords:
-        nb_word_existence = 0
+    list_files = list_of_files(directory, extension)
+    all_words = set().union(*file_words.values())
+    idf_scores = {}
+    for word in all_words:
+        word_existence_count = 0
         for file in list_files:
-            if ele in file_words[file]:  
-                nb_word_existence += 1
-        nb_IDF_words[ele] = log10(((len(list_files)) / (nb_word_existence)))
-    return nb_IDF_words
+            if word in file_words[file]:  
+                word_existence_count += 1
+        idf_scores[word] = log10(((len(list_files)) / (word_existence_count)))
+    return idf_scores

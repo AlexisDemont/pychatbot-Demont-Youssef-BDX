@@ -1,6 +1,6 @@
-# Menu je ne vois pas les autres fonctions
-from words_classifier import NotImportantWord, mostImportantWord, WordMostSpoken, findWhoSaidFirstThis, findAllPertinentSaidWords, calculate_occurence_words, calculate_occurence_
-
+from words_classifier import most_important_word, not_important_word, word_most_spoken, find_who_said_first_this, find_all_pertinent_said_words,calculate_president_most_said_word, speaker_of_word
+from text_organization import speeches_cleaner
+speeches_cleaner()
 dateText = {
     "Giscard dEstaing": 1974,
     "Mitterrand": 1981,
@@ -21,15 +21,24 @@ print("Pour afficher les mots évoqués par tous les présidents , Tapez 5 ")
 InputValue = int(input("Veuillez choisir la fonctionnalité souhaitée : "))
 
 if InputValue == 0 :
-    print(f"Les mots les moins importants dans le document sont : {NotImportantWord(directory='./cleaned/')}")
+    print(f"Les mots les moins importants dans le document sont : {not_important_word(directory='./cleaned/')}")
 elif InputValue == 1 :
-    print(f"Les mots ayant le score TD-IDF le plus élevé sont : {mostImportantWord(directory='./cleaned/')}")
+    print(f"Les mots ayant le score TD-IDF le plus élevé sont : {most_important_word(directory='./cleaned/')}")
 elif InputValue == 2 :
-    print(f"Les mots les plus répétés par le président Chirac sont : {calculatePresidentMostSaidWord('chirac')}",)
+    print(f"Les mots les plus répétés par le président Chirac sont :")
+    most_said_words=calculate_president_most_said_word('chirac')
+    for word in most_said_words:
+        print(word)
 elif InputValue == 3 :
-    print(f"Les noms des présidents qui ont parlé de la Nation et celui qui l'a répété le plus de fois : {WordMostSpoken('Nation')}")
+    speakers=speaker_of_word('Nation')
+    who_said_it_most=word_most_spoken('Nation')
+    
+    print("Les présidents ayant utilisé le mot Nation sont :")
+    for speaker in speakers:
+        print(speaker)
+    print(f"Le président ayant le plus utilisé le mot Nation est : {who_said_it_most}")
 elif InputValue == 4 :
-    name,year=findWhoSaidFirstThis('climat',dateText)
+    name,year=find_who_said_first_this('climat',dateText)
     print(f"Le premier president à parler de l'écologie/climat est : {name} en {year}")  
 elif InputValue == 5 :
-    print(f"Les mots évoqués par tous les présidents : {findAllPertinentSaidWords()}")
+    print(f"Les mots évoqués par tous les présidents : {find_all_pertinent_said_words()}")
