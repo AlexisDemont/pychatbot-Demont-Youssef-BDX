@@ -18,7 +18,7 @@ def SpeakerOfWord (word):
                         speaker[president] += files_tf[filename][word]
                     else:
                         speaker[president] = files_tf[filename][word]
-    return(speaker)
+    return speaker
 
 
 def WordMostSpoken (word):
