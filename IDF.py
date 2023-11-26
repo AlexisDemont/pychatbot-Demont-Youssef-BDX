@@ -6,6 +6,12 @@
 from math import log10
 from basicsFunctions import list_of_files,file_reader
 
+"""
+    Fonction qui retourne un dictionnaire { fichier : set(mots dans ce fichier}.
+    :param: répertoire des fichiers textes nettoyés
+    :return: dictionnaire dont la clé est le ficheir et la valeur de cette clé est un set de tous les mots contenant dans ce fichier
+    :rtype: dictionnaire
+    """
 def create_file_words_dict(directory="./cleaned/"):
     list_files = list_of_files(directory, ".txt")
     file_words = {}
@@ -14,16 +20,33 @@ def create_file_words_dict(directory="./cleaned/"):
         file_words[file] = words_in_file
     return file_words
 
+"""
+    Fonction qui retourne vrai si le mot existe ou faux si non , dans un fichier, en parcourant le dictionnaire d ela fonction precedente
+    :param: le mot qu'on souhaite verifier son existence , le fichier , le dictionnaire files_words
+    :return: Vrai si le mot existe , Faux si non 
+    :rtype: Booléen
+    """
 def CheckWordExist(word, file, file_words):
     return word in file_words[file]
 
+"""
+    Fonction qui retourne un set qui contient tous les mots de tous les fichiers
+    :param: le dictionnaire file_words
+    :return: set de tous les mots de tous les fichiers 
+    :rtype: set
+    """
 def RegroupAllWords(file_words):
     allWords = set()
     for words_in_file in file_words.values():
         allWords.update(words_in_file)
     return allWords
 
-
+"""
+    Fonction qui retourne un dictionnaire {mot : score IDF}
+    :param: répertoire des fichiers textes nettoyés
+    :return: dictionnaire dont les clés sont tous les mots dans tous les fichiers et la valeur de chaque clé est le score IDF 
+    :rtype: dictionnaire 
+    """
 def CalculateIDF(directory="./cleaned/"):
     file_words=create_file_words_dict(directory)
     list_files = list_of_files(directory, ".txt")

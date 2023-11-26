@@ -3,6 +3,12 @@ from TF import CalculateOccurenceWords
 from IDF import CalculateIDF, create_file_words_dict, RegroupAllWords
 
 
+"""
+    Fonction qui retourne une matrice TF-IDF dont caque ligne represente un mot et son score TF-IDF dans chaque fichier (en colonne) 
+    :param: répertoire des fichiers textes nettoyés 
+    :return: Matrice (ligne = mot , colonne = fichier, et score TF-IDF pour chaque ligne dans chaque colonne)
+    :rtype: Matrice
+    """
 def TfIdf_Matrice(directory='./cleaned/'):
     list_files = list_of_files('./cleaned', '.txt')
     matrice = [[files.replace('_cleaned', '') for files in list_files]]
