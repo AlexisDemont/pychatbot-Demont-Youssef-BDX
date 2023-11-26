@@ -39,8 +39,6 @@ def list_of_names():
     return presidents_names
 
 
-
-
 """
     Fonction qui retourne un set des prenoms noms des presidents
     :param: pas de parametre 
@@ -64,3 +62,11 @@ def sayWhatIsTheFullNameOf(name, dict_names):
         if name in key:
             fullName=str(dict_names[name] + " " + name)
     return str(fullName)
+
+def regroupTextFromSimilarPresidents(directory='cleaned'):
+    authorsName = list_of_names()
+    list_files = list_of_files(directory, ".txt")
+    dict_files = {}
+    for author in authorsName:
+        dict_files[author] = [file for file in list_files if author in file]
+    return dict_files
