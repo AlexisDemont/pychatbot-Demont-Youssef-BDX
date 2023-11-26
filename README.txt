@@ -19,4 +19,5 @@ fois
 
 Instruction d'utilisation du code:
 
-Lancer main.py , pas besoin de module supplémentaire
+Créer un dossier nommé 'cleaned'
+Lancer main.py
