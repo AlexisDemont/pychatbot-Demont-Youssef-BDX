@@ -2,6 +2,7 @@
 from utils import create_file_words_dict
 from text_organization import string_cleaner
 
+
 def SearchCommonWords (string , directory) :
     """
         Function that returns a list of commons words between the question and the documents
