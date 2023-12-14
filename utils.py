@@ -99,6 +99,26 @@ def tfidf_matrice(directory='./cleaned/'):
         matrice.append(line)
     return matrice
 
+def transpose_this( matrice ):
+    """
+      Function that transpose a matrix
+
+      Parameters:
+          matrix
+
+      Returns:
+          transposed matrix
+      """
+    rows = len(matrice)
+    columns = len(matrice[0])
+    transposedMatrice = [[0]*rows for k in range (columns)]
+    for i in range (columns):
+        for j in range (rows):
+            transposedMatrice[i][j] = matrice[j][i]
+
+    return transposedMatrice
+
+
 
 def create_file_words_dict(directory="./cleaned/"):
     """
@@ -142,3 +162,4 @@ def calculate_idf(directory="./cleaned/",extension=".txt"):
                 word_existence_count += 1
         idf_scores[word] = log10(((len(list_files)) / (word_existence_count)))
     return idf_scores
+print(calculate_idf(directory="./cleaned/",extension=".txt"))
