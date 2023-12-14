@@ -147,4 +147,3 @@ def speeches_cleaner(directory='./speeches/', extension='.txt'):
                 cleaned_text.write(line)
     return
 
-speeches_cleaner()
