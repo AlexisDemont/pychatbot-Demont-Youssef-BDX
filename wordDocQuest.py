@@ -13,11 +13,12 @@ def SearchCommonWords (string , directory) :
 
         """
     WordsInQuestion = ['le','climat'] # fonction pour la liste des mots
+
     CommonWords = []
     for element in WordsInQuestion :
-        for word in tfidf_matrice (directory) :
-            if element == word :
-                CommonWords.append(element)
+        if element in tfidf_matrice(directory) :
+            CommonWords.append(element)
 
     return CommonWords
 test = print(SearchCommonWords("le climat ", './cleaned/'))
+# le probleme vient apparemment de la matrice tf-idf car si on teste tf idf dans utils il y a un souci
