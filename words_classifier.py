@@ -1,5 +1,6 @@
-from utils import file_reader, list_of_files, tfidf_matrice, calculate_occurence_words
-from text_organization import regroup_text_from_similar_speakers, list_of_names_fillnames, extract_the_name_from_this   
+from utils import file_reader, list_of_files, tfidf_matrice, calculate_occurence_words,create_file_words_dict
+from text_organization import regroup_text_from_similar_speakers, list_of_names_fillnames, extract_the_name_from_this, string_cleaner
+
 def most_important_word(directory="./cleaned/"):
     """
     Function that returns a set of the most important words based on the sum of their TfIdf scores across all texts.
@@ -201,3 +202,29 @@ def calculate_president_most_said_word(president_name):
         elif president_word_occurence[key] == max_occurence:
             president_most_said_words.add(key)
     return president_most_said_words
+
+
+
+
+def SearchCommonWords (string , directory) :
+    """
+        Function that returns a list of commons words between the question and the documents
+
+        Parameters:
+            A string and directory
+
+        Returns:
+            list of common words
+
+        """
+    WordString = string_cleaner(string)
+
+    file_words = create_file_words_dict(directory)
+    all_words = set().union(*file_words.values())
+
+    CommonWords = []
+    for element in WordString :
+        if element in all_words :
+            CommonWords.append(element)
+
+    return CommonWords

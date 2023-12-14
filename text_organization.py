@@ -108,58 +108,28 @@ def regroup_text_from_similar_speakers(directory='cleaned',extension='.txt'):
         dict_files[author] = [file for file in list_files if author in file]
     return dict_files
 
-
-def speeches_to_lowercase(directory, extension):
+def string_cleaner(string):
     """
-    Function that converts speeches to lowercase
+    Function that converts a string to clean text
 
     Parameters:
-        directory (str): Path to the directory containing the speeches
-        extension (str): Extension of the speech files
+        string (str): String to clean
 
     Returns:
-        None
+        string (str): Cleaned string
     """
-    files_names = list_of_files(directory, extension)
-    for name in files_names:
-        new_name = name.split('.')[0] + '_lowercased.txt'
-        with open(directory +'/' + name, 'r') as raw_text, open('./cleaned/' + new_name, 'w') as minimized_text:
-            for line in raw_text:
-                line = line.lower()
-                minimized_text.write(line)
-    return
-
-
-def lowercase_to_clean(directory='./cleaned/', extension='.txt'):
-    """
-    Function that converts lowercase text to clean text
-
-    Parameters:
-        directory (str): Path to the directory containing the lowercase text files
-        extension (str): Extension of the lowercase text files
-
-    Returns:
-        None
-    """
-    files_names = list_of_files(directory, extension)
-    for name in files_names:
-        new_name = name.replace('lowercased', 'cleaned')
-        if 'lowercased' in name:
-            with open(directory + name, 'r') as lowercased_text, open(directory + new_name, 'w') as cleaned_text:
-                for line in lowercased_text:
-                    for character in line:
-                        if not (character.isalpha()) and not (character.isnumeric()):
-                            line = line.replace(character, ' ')
-                    line = re.sub(' +', ' ', line)
-                    line = line.lstrip()
-                    cleaned_text.write(line)
-            os.remove(directory + name)
-    return
-
+    for character in string:
+        if not (character.isalpha()) and not (character.isnumeric()):
+            string = string.replace(character, ' ')
+        else:
+            string = string.replace(character,character.lower())
+    string = re.sub(' +', ' ', string)
+    string = string.lstrip()
+    return string
 
 def speeches_cleaner(directory='./speeches/', extension='.txt'):
     """
-    Function that converts speeches to lowercase and then them
+    Function that converts speeches to lowercase and remove specials characters
 
     Parameters:
         directory (str): Path to the directory containing the lowercase text files
@@ -168,6 +138,12 @@ def speeches_cleaner(directory='./speeches/', extension='.txt'):
     Returns:
         None
     """
-    speeches_to_lowercase(directory, extension)
-    lowercase_to_clean()
+    files_names = list_of_files(directory, extension)
+    for name in files_names:
+        new_name = name.split('.')[0] + '_cleaned.txt'
+        with open(directory +'/' + name, 'r') as raw_text, open('./cleaned/' + new_name, 'w') as cleaned_text:
+            for line in raw_text:
+                line = string_cleaner(line)
+                cleaned_text.write(line)
     return
+
