@@ -50,6 +50,8 @@ def file_reader(file, directory):
         return ''.join(f.readlines())
     
 
+    
+
 def calculate_occurence_words(string):
     """
     Function that calculates the occurrence of each word in a string and returns a dictionary
