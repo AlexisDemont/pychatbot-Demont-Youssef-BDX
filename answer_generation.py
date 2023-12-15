@@ -1,6 +1,4 @@
-from words_classifier import tfidf_matrice
 from math import sqrt
-from utils import transpose_this
     
 
 def scalar_product(matrix_words_and_doc_lines, matrix_question):
