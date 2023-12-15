@@ -17,6 +17,7 @@ def score_TF_question(string):
     # si mot n'est pas dsans matrice alors non
     for key , val in TF.items():
         TF[key] = val/len(list_of_words)
+
     return TF
 print(score_TF_question("le climat Saraah"))
 def dict_score_TFIDF_question (string):
