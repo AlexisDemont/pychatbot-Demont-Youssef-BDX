@@ -1,5 +1,6 @@
 import os
 from math import log10
+from text_organization import string_cleaner
 
 def list_of_files(directory, extension):
     """
@@ -99,6 +100,26 @@ def tfidf_matrice(directory='./cleaned/'):
         matrice.append(line)
     return matrice
 
+def transpose_this( matrice ):
+    """
+      Function that transpose a matrix
+
+      Parameters:
+          matrix
+
+      Returns:
+          transposed matrix
+      """
+    rows = len(matrice)
+    columns = len(matrice[0])
+    transposedMatrice = [[0]*rows for k in range (columns)]
+    for i in range (columns):
+        for j in range (rows):
+            transposedMatrice[i][j] = matrice[j][i]
+
+    return transposedMatrice
+
+
 
 def create_file_words_dict(directory="./cleaned/"):
     """
@@ -142,3 +163,66 @@ def calculate_idf(directory="./cleaned/",extension=".txt"):
                 word_existence_count += 1
         idf_scores[word] = log10(((len(list_files)) / (word_existence_count)))
     return idf_scores
+print(calculate_idf(directory="./cleaned/",extension=".txt"))
+
+
+def score_TF_question(string):
+    """
+    Function that calculate the occurence of words in a string
+
+    Parameters:
+        string
+    Returns:
+        dictionary of word : TF
+    """
+    TF = calculate_occurence_words(string)
+    list_of_words = string_cleaner(string)
+    # si mot n'est pas dsans matrice alors non
+    for key , val in TF.items():
+        TF[key] = val/len(list_of_words)
+
+    return TF
+print(score_TF_question("le climat Saraah"))
+def dict_score_TFIDF_question (string):
+    DictIDF = calculate_idf(directory="./cleaned/",extension=".txt")
+    DictTFIDF = score_TF_question(string)
+    for key , val in DictTFIDF.items():
+        if key in DictIDF :
+            DictTFIDF[key]= val * DictIDF[key]
+    return DictTFIDF
+print(dict_score_TFIDF_question("Le climat Sarah"))
+
+def tfidf_matrix_of ( string ):
+    DictTFIDF = dict_score_TFIDF_question(string)
+    tfidfTuple = ([],[])
+    for key , val in DictTFIDF.items():
+        tfidfTuple[0].append(key)
+        tfidfTuple[1].append(val)
+    tfidfMatrix = []
+    for element in tfidfTuple:
+        tfidfMatrix.append(element)
+    return tfidfMatrix
+print(tfidf_matrix_of("Le climat Sarah"))
+
+def transpose_this( matrice ):
+    """
+      Function that transpose a matrix
+
+      Parameters:
+          matrix
+
+      Returns:
+          transposed matrix
+      """
+    rows = len(matrice)
+    columns = len(matrice[0])
+    transposedMatrice = [[0]*rows for k in range (columns)]
+    for i in range (columns):
+        for j in range (rows):
+            transposedMatrice[i][j] = matrice[j][i]
+
+    return transposedMatrice
+
+
+
+

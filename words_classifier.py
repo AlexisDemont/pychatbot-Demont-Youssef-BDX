@@ -206,7 +206,7 @@ def calculate_president_most_said_word(president_name):
 
 
 
-def SearchCommonWords (string , directory) :
+def search_common_words (string , directory) :
     """
         Function that returns a list of commons words between the question and the documents
 
