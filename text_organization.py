@@ -1,6 +1,6 @@
 import os
 import re
-from utils import list_of_files
+from utils import list_of_files, calculate_occurence_words, calculate_idf
 
 dict_names = {
     "Chirac": "Jacques",
@@ -147,3 +147,24 @@ def speeches_cleaner(directory='./speeches/', extension='.txt'):
                 cleaned_text.write(line)
     return
 
+def dict_score_TFIDF_question(string):
+    DictIDF = calculate_idf(directory="./cleaned/", extension=".txt")
+    DictTFIDF = calculate_occurence_words(string)
+    for key, val in DictTFIDF.items():
+        if key in DictIDF:
+            DictTFIDF[key] = val * DictIDF[key]
+        else :
+            DictTFIDF[key] = 0
+    return DictTFIDF
+
+
+def tfidf_matrix_of(string):
+    DictTFIDF = dict_score_TFIDF_question(string)
+    tfidfTuple = ([], [])
+    for key, val in DictTFIDF.items():
+        tfidfTuple[0].append(key)
+        tfidfTuple[1].append(val)
+    tfidfMatrix = []
+    for element in tfidfTuple:
+        tfidfMatrix.append(element)
+    return tfidfMatrix
