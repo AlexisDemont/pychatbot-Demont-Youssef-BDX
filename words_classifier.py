@@ -1,5 +1,4 @@
-from utils import file_reader, list_of_files, tfidf_matrice, calculate_occurence_words,create_file_words_dict
-from text_organization import regroup_text_from_similar_speakers, list_of_names_fillnames, extract_the_name_from_this, string_cleaner
+from utils import file_reader, list_of_files, tfidf_matrice, calculate_occurence_words
 
 def most_important_word(directory="./cleaned/"):
     """
@@ -51,7 +50,9 @@ def not_important_word(directory="./cleaned/"):
             not_importants_words.add(str(current_word))
     return not_importants_words
 
+
 def find_who_said_first_this(word, date_text, directory="./cleaned/"):
+    from text_organization import extract_the_name_from_this
     """
     Find the first speaker who said a specific word.
 
@@ -86,6 +87,7 @@ def find_who_said_first_this(word, date_text, directory="./cleaned/"):
 
 
 def find_all_pertinent_said_words(directory="./cleaned/"):
+    from text_organization import regroup_text_from_similar_speakers
     """
     Find all the pertinent words said by the speakers.
 
@@ -116,6 +118,7 @@ def find_all_pertinent_said_words(directory="./cleaned/"):
     return said_words
 
 def speaker_of_word(word):
+    from text_organization import list_of_names_fillnames
     """
     Find the speakers who said a specific word.
 
@@ -207,6 +210,8 @@ def calculate_president_most_said_word(president_name):
 
 
 def search_common_words (string , directory) :
+    from text_organization import string_cleaner
+    from utils import create_file_words_dict
     """
         Function that returns a list of commons words between the question and the documents
 
@@ -223,8 +228,7 @@ def search_common_words (string , directory) :
     all_words = set().union(*file_words.values())
 
     CommonWords = []
-    for element in WordString :
+    for element in WordString.split() :
         if element in all_words :
             CommonWords.append(element)
-
     return CommonWords

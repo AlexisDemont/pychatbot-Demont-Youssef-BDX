@@ -1,9 +1,5 @@
-import os
-from math import log10
-
-
-
 def list_of_files(directory, extension):
+    import os
     """
     Function that returns a list of file names in the directory with a specific extension
 
@@ -21,6 +17,7 @@ def list_of_files(directory, extension):
 
 
 def clean_folder(directory="./cleaned", extension="txt"):
+    import os
     """
     Function that deletes all files in the 'cleaned' directory with a specific extension
 
@@ -146,6 +143,7 @@ def create_file_words_dict(directory="./cleaned/"):
 
 
 def calculate_idf(directory="./cleaned/", extension=".txt"):
+    from math import log10
     """
     Function that calculates the IDF score for each word in all files and returns a dictionary
 

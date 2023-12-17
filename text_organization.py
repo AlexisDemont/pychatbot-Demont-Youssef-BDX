@@ -1,6 +1,4 @@
-import os
-import re
-from utils import list_of_files, calculate_occurence_words, calculate_idf
+from utils import list_of_files
 
 dict_names = {
     "Chirac": "Jacques",
@@ -10,7 +8,6 @@ dict_names = {
     "Mitterrand": "François",
     "Sarkozy": "Nicolas",
 }
-
 
 
 def extract_the_name_from_this(filename):
@@ -24,9 +21,9 @@ def extract_the_name_from_this(filename):
         name (str): Name of the speaker
     """
     name = filename
-    if '_' in name:
+    if "_" in name:
         name = name.split("_")[1]
-    if '.' in name:
+    if "." in name:
         name = name.split(".")[0]
     for character in name:
         if character.isnumeric():
@@ -83,14 +80,14 @@ def find_what_is_the_full_name_of(name, dict_names):
         full_name (str): Full name of the given name
     """
     name = extract_the_name_from_this(name)
-    full_name = 'Anonyme Anonyme'
+    full_name = "Anonyme Anonyme"
     for key in dict_names:
         if name in key:
             full_name = str(dict_names[name] + " " + name)
     return str(full_name)
 
 
-def regroup_text_from_similar_speakers(directory='cleaned',extension='.txt'):
+def regroup_text_from_similar_speakers(directory="cleaned", extension=".txt"):
     """
     Function that regroups text files from similar speakers into a dictionary
 
@@ -108,7 +105,9 @@ def regroup_text_from_similar_speakers(directory='cleaned',extension='.txt'):
         dict_files[author] = [file for file in list_files if author in file]
     return dict_files
 
+
 def string_cleaner(string):
+    from re import sub
     """
     Function that converts a string to clean text
 
@@ -120,14 +119,15 @@ def string_cleaner(string):
     """
     for character in string:
         if not (character.isalpha()) and not (character.isnumeric()):
-            string = string.replace(character, ' ')
+            string = string.replace(character, " ")
         else:
-            string = string.replace(character,character.lower())
-    string = re.sub(' +', ' ', string)
+            string = string.replace(character, character.lower())
+    string = sub(" +", " ", string)
     string = string.lstrip()
     return string
 
-def speeches_cleaner(directory='./speeches/', extension='.txt'):
+
+def speeches_cleaner(directory="./speeches/", extension=".txt"):
     """
     Function that converts speeches to lowercase and remove specials characters
 
@@ -140,20 +140,25 @@ def speeches_cleaner(directory='./speeches/', extension='.txt'):
     """
     files_names = list_of_files(directory, extension)
     for name in files_names:
-        new_name = name.split('.')[0] + '_cleaned.txt'
-        with open(directory +'/' + name, 'r') as raw_text, open('./cleaned/' + new_name, 'w') as cleaned_text:
+        new_name = name.split(".")[0] + "_cleaned.txt"
+        with open(directory + "/" + name, "r") as raw_text, open(
+            "./cleaned/" + new_name, "w"
+        ) as cleaned_text:
             for line in raw_text:
                 line = string_cleaner(line)
                 cleaned_text.write(line)
     return
 
-def dict_score_TFIDF_question(string):
+
+def dict_score_TFIDF_question(list):
+    from utils import calculate_idf, calculate_occurence_words
+    string = "".join(ele + " " for ele in list)
     DictIDF = calculate_idf(directory="./cleaned/", extension=".txt")
     DictTFIDF = calculate_occurence_words(string)
     for key, val in DictTFIDF.items():
         if key in DictIDF:
             DictTFIDF[key] = val * DictIDF[key]
-        else :
+        else:
             DictTFIDF[key] = 0
     return DictTFIDF
 
