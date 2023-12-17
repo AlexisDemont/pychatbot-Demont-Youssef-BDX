@@ -107,7 +107,6 @@ def regroup_text_from_similar_speakers(directory="cleaned", extension=".txt"):
 
 
 def string_cleaner(string):
-    from re import sub
     """
     Function that converts a string to clean text
 
@@ -117,11 +116,14 @@ def string_cleaner(string):
     Returns:
         string (str): Cleaned string
     """
+    from re import sub
+    accent_dict = {"à": "a", "â": "a", "é": "e", "è": "e", "ê": "e", "ë": "e", "î": "i", "ï": "i", "ô": "o", "ö": "o", "ù": "u", "û": "u", "ü": "u", "ç": "c"}
+    string = string.lower()
     for character in string:
         if not (character.isalpha()) and not (character.isnumeric()):
             string = string.replace(character, " ")
-        else:
-            string = string.replace(character, character.lower())
+    for character in accent_dict:
+        string = string.replace(character, accent_dict[character])
     string = sub(" +", " ", string)
     string = string.lstrip()
     return string
