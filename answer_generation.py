@@ -47,8 +47,6 @@ def most_pertinent_word_related_to_doc(matrix_question, doc):
     from words_classifier import not_important_word
 
     non_pertinent_words = not_important_word("./cleaned/")
-    add_non_pertinent_words = {"quel", "quelle", "quels", "quelles"}
-    non_pertinent_words = non_pertinent_words.union(add_non_pertinent_words)
     words = create_file_words_dict("./cleaned/")[
         doc.split(".")[0] + "_cleaned." + doc.split(".")[1]
     ]
