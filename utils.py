@@ -169,15 +169,6 @@ def calculate_idf(directory="./cleaned/", extension=".txt"):
         idf_scores[word] = log10(((len(list_files)) / (word_existence_count)))
     return idf_scores
 
-
-print(calculate_idf(directory="./cleaned/", extension=".txt"))
-
-
-
-
-
-
-
 def transpose_this(matrice):
     """
     Function that transpose a matrix
