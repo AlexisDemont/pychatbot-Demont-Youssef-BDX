@@ -1,4 +1,12 @@
-def list_of_files(directory, extension):
+# -*- coding: utf-8 -*-
+
+def directory_cleaner(clean_directory):
+    import glob,os
+    files_to_erase = glob.glob(clean_directory)
+    for file in files_to_erase:
+        os.remove(file)
+
+def list_of_files(directory, extension, prefix=False):
     import os
     """
     Function that returns a list of file names in the directory with a specific extension
@@ -11,9 +19,14 @@ def list_of_files(directory, extension):
         files (list): List of file names
 
     """
-    return [
-        filename for filename in os.listdir(directory) if filename.endswith(extension)
-    ]
+    if not prefix:
+        return [
+            filename for filename in os.listdir(directory) if filename.endswith(extension)
+        ]
+    else:
+        return [
+            filename for filename in os.listdir(directory) if filename.endswith(extension) and filename.split('_')[0].lower()==prefix.lower()
+        ]
 
 
 def clean_folder(directory="./cleaned", extension="txt"):
@@ -33,6 +46,12 @@ def clean_folder(directory="./cleaned", extension="txt"):
         os.remove(directory + name)
     return
 
+import chardet
+
+def detect_encoding(file_path):
+    with open(file_path, 'rb') as f:
+        result = chardet.detect(f.read())
+        return result['encoding']
 
 def file_reader(file, directory):
     """
@@ -48,8 +67,10 @@ def file_reader(file, directory):
     """
     if directory[-1] != "/":
         directory += "/"
-    with open(directory + file, "r") as f:
-        return "".join(f.readlines())
+    file_encoding = detect_encoding(directory + file)
+    with open(directory + file, "r", encoding=file_encoding) as f:
+        lines = f.readlines()
+        return "".join(lines)
 
 
 def calculate_occurence_words(string):

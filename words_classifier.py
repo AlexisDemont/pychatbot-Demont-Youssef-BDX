@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from utils import file_reader, list_of_files, tfidf_matrice, calculate_occurence_words
 
 

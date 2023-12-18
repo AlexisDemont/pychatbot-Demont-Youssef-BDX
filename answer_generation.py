@@ -45,12 +45,12 @@ def most_pertinent_doc(matrix, matrix_question):
 def most_pertinent_word_related_to_doc(matrix_question, doc):
     from utils import create_file_words_dict
     from words_classifier import not_important_word
-
+    
     non_pertinent_words = not_important_word("./cleaned/")
     words = create_file_words_dict("./cleaned/")[
         doc.split(".")[0] + "_cleaned." + doc.split(".")[1]
     ]
-    most_pertinent_word = ""
+    most_pertinent_word = False
     most_pertinent_word_score = 0
     for i in range(len(matrix_question[0])):
         if (
@@ -75,6 +75,22 @@ def extract_answer(doc, word):
                 return ele + "."
     return False
 
+def humanize_answer(question, answer):
+    from random import randint
+    question_starters = {
+        "Comment": ["Après analyse, ","Après réflexion, ","Après étude, "],
+        "Pourquoi": ["Car, ", "Parce que, ", "Puisque, ", "Vu que, "],
+        "Peux-tu": ["Oui, bien sûr!", "Évidemment!", "Bien sûr!", "Oui!", "Tout à fait!"],
+        "Qui": ["Et bien, "],
+
+        }
+    for ele in question_starters.keys():
+        if ele.lower() == question.split()[0].lower():
+            random= randint(0,len(question_starters[ele])-1)
+            answer=answer[1].lower() + answer[2:]
+            answer=question_starters[ele][random] + answer
+            return answer
+    return answer
 
 def generate_answer_to_this(question):
     from words_classifier import search_common_words, tfidf_matrice
@@ -90,4 +106,4 @@ def generate_answer_to_this(question):
     answer = extract_answer(pertinent_doc, pertinent_word)
     if not answer:
         return "There is no pertinent answer to this question in the corpus."
-    return answer
+    return humanize_answer(question,answer)

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from utils import list_of_files
 
 dict_names = {
@@ -129,18 +131,19 @@ def string_cleaner(string):
     return string
 
 
-def speeches_cleaner(directory="./speeches/", extension=".txt"):
+def speeches_cleaner(prefix=False, directory="./speeches/", extension=".txt"):
     """
     Function that converts speeches to lowercase and remove specials characters
 
     Parameters:
+        prefix (str): Category of files
         directory (str): Path to the directory containing the lowercase text files
         extension (str): Extension of the lowercase text files
 
     Returns:
         None
     """
-    files_names = list_of_files(directory, extension)
+    files_names = list_of_files(directory, extension,prefix)
     for name in files_names:
         new_name = name.split(".")[0] + "_cleaned.txt"
         with open(directory + "/" + name, "r") as raw_text, open(
@@ -175,3 +178,6 @@ def tfidf_matrix_of(string):
     for element in tfidfTuple:
         tfidfMatrix.append(element)
     return tfidfMatrix
+
+def find_text_categories(directory,extension):
+    return {ele.split('_')[0] for ele in list_of_files(directory,extension) }

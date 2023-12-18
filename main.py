@@ -1,3 +1,13 @@
+import os
+
+clean_directory = "/cleaned/*"
+
+
+try:
+    os.mkdir("./cleaned/")
+except FileExistsError:
+    pass
+
 from words_classifier import (
     most_important_word,
     not_important_word,
@@ -7,17 +17,11 @@ from words_classifier import (
     calculate_president_most_said_word,
     speaker_of_word,
 )
-from text_organization import speeches_cleaner
-import os
+from utils import tfidf_matrice, directory_cleaner
+from text_organization import speeches_cleaner, find_text_categories
+
 import PySimpleGUI as sg
 from answer_generation import generate_answer_to_this
-
-speeches_cleaner()
-
-try:
-    os.mkdir("./cleaned/")
-except FileExistsError:
-    pass
 
 
 dict_names = {
@@ -39,14 +43,17 @@ dateText = {
     "Macron": 2017,
 }
 
+text_choices = ""
+
 presidents = tuple((dict_names[key] + " " + key) for key in dict_names.keys())
 
 current_state = 0
 # 0 : initialisation, 1 : choix des fonctionnalités, 2 : choix des fonctionnalités de la partie 1
-# 3 : mot le plus prononcé par un président,  4 : chatbot
+# 3 : mot le plus prononcé par un président,  4 : choix des textes du chatbot 5 : chatbot
 
 
-menu_def = [["File", ["Matrix", "Exit"]]]
+menu_def1 = [["File", ["Exit"]]]
+menu_def2 = [["File", ["Matrix", "Exit"]]]
 sg.theme("DarkAmber")
 sg.set_options(element_padding=(0, 0))
 
@@ -56,7 +63,7 @@ while current_state < 9:
         speeches = ""
 
         elements = [
-            [sg.Menu(menu_def, tearoff=True)],
+            [sg.Menu(menu_def1, tearoff=True)],
             [
                 sg.Text(
                     "Veuillez selectionner le dossier contenant les discours",
@@ -115,7 +122,7 @@ while current_state < 9:
         choices = ("Fonctionnalités de la partie 1", "Le chatbot")
 
         elements = [
-            [sg.Menu(menu_def, tearoff=True)],
+            [sg.Menu(menu_def1, tearoff=True)],
             [sg.Text("Que voulez vous faire ?")],
             [sg.Listbox(choices, size=(30, len(choices)), key="-FIRSTCHOICE-")],
             [sg.Button("Ok"), sg.Button("Retour")],
@@ -167,6 +174,8 @@ while current_state < 9:
 
     # get the index of the user_choice
     if current_state == 2:
+        directory_cleaner(clean_directory)
+        speeches_cleaner()
         choices = (
             "Les mots les moins importants des documents",
             "Les mots ayant le score TD-IDF le plus élevé",
@@ -176,7 +185,7 @@ while current_state < 9:
             "Les mots évoqués par tous les présidents",
         )
         elements = [
-            [sg.Menu(menu_def, tearoff=True)],
+            [sg.Menu(menu_def1, tearoff=True)],
             [sg.Text("Que souhaitez-vous afficher ?")],
             [
                 sg.Listbox(
@@ -219,7 +228,6 @@ while current_state < 9:
             event, values = window.read()
             if event == "Ok":
                 if values["-CHOICES-"]:
-                    print(values)
                     if (
                         values["-CHOICES-"][0]
                         == "Les mots les moins importants des documents"
@@ -300,7 +308,7 @@ while current_state < 9:
         choices = presidents
 
         elements = [
-            [sg.Menu(menu_def, tearoff=True)],
+            [sg.Menu(menu_def1, tearoff=True)],
             [sg.Text("Que voulez vous faire ?")],
             [sg.Listbox(choices, size=(30, len(choices)), key="-PRESIDENTS-")],
             [sg.Button("Ok"), sg.Button("Retour")],
@@ -320,7 +328,7 @@ while current_state < 9:
         ]
 
         window = sg.Window(
-            "Choix du président",
+            "Mot le plus répété",
             layout,
             resizable=True,
             default_element_size=(40, 1),
@@ -355,9 +363,65 @@ while current_state < 9:
                 break
         window.close()
     if current_state == 4:
-        # make a text input with pysimplegui
+        choices = tuple()
+        for ele in find_text_categories(speeches, "txt"):
+            choices = choices + (ele,)
+        choices = ("Tous les textes",) + choices
         elements = [
-            [sg.Menu(menu_def, tearoff=True)],
+            [sg.Menu(menu_def1, tearoff=True)],
+            [sg.Text("Quelle(s) catégorie(s) souhaitez vous ?")],
+            [sg.Listbox(choices, size=(30, len(choices)), key="-TEXTCHOICE-")],
+            [sg.Button("Ok"), sg.Button("Retour")],
+        ]
+
+        layout = [
+            [sg.Text(key="-EXPAND-", font="ANY 1", pad=(0, 0))],
+            [
+                sg.Text("", pad=(0, 0), key="-EXPAND2-"),
+                sg.Column(
+                    elements,
+                    vertical_alignment="center",
+                    justification="center",
+                    k="-C-",
+                ),
+            ],
+        ]
+
+        window = sg.Window(
+            "Choix des fonctionnalités",
+            layout,
+            resizable=True,
+            default_element_size=(40, 1),
+            element_justification="center",
+            finalize=True,
+        )
+        window["-C-"].expand(True, True, True)
+        window["-EXPAND-"].expand(True, True, True)
+        window["-EXPAND2-"].expand(True, False, True)
+        window["-TEXTCHOICE-"].expand(expand_x=True, expand_y=True)
+
+        while True:
+            event, values = window.read()
+            if event == "Ok":
+                if values["-TEXTCHOICE-"]:
+                    user_choice = values["-TEXTCHOICE-"][0]
+                    if user_choice == "Tous les textes":
+                        user_choice = False
+                    current_state += 1
+                    break
+            if event == "Retour":
+                current_state -= 3
+                break
+            if event == sg.WIN_CLOSED or event == "Exit":
+                current_state = 10
+                break
+        window.close()
+
+    if current_state == 5:
+        directory_cleaner(clean_directory)
+        speeches_cleaner(user_choice)
+        elements = [
+            [sg.Menu(menu_def1, tearoff=True)],
             [sg.Text("Veuillez poser votre question")],
             [sg.InputText()],
             [sg.Button("Ok"), sg.Button("Retour")],
@@ -391,7 +455,6 @@ while current_state < 9:
         while True:
             event, values = window.read()
             if event == "Ok":
-                print(values)
                 if values[1]:
                     user_choice = values[1]
                     if user_choice.lower() == "toto":
@@ -413,7 +476,7 @@ while current_state < 9:
                             line_width=100,
                         )
             if event == "Retour":
-                current_state -= 3
+                current_state -= 1
                 break
             if event == sg.WIN_CLOSED or event == "Exit":
                 current_state = 10
