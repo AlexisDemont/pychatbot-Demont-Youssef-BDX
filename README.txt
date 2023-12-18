@@ -6,7 +6,7 @@ Lien vers le git :
 
 https://github.com/AlexisDemont/pychatbot-Demont-Youssef-BDX
 
-Fonctionnalités principales:
+Fonctionnalités de la première partie :
 
 1. Afficher la liste des mots les moins importants dans le corpus de documents. Un mot est dit non important,
 si son TD-IDF = 0 dans tous les fichiers.
@@ -17,7 +17,11 @@ fois
 5. Indiquer le premier président à parler du climat et/ou de l’écologie
 6. Hormis les mots dits « non importants », quel(s) est(sont) le(s) mot(s) que tous les présidents ont évoqués.
 
+Fonctionnalités de la seconde partie:
+
+Un chatbot pouvant répondre à des questions en se basant sur le contenu de textes classés par catégorie.
+
 Instruction d'utilisation du code:
 
-Créer un dossier nommé 'cleaned'
+Exécuter la commande "pip install -r requirements.txt"
 Lancer main.py
