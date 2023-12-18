@@ -11,13 +11,12 @@ except FileExistsError:
 from words_classifier import (
     most_important_word,
     not_important_word,
-    word_most_spoken,
     find_who_said_first_this,
     find_all_pertinent_said_words,
     calculate_president_most_said_word,
     speaker_of_word,
 )
-from utils import tfidf_matrice, directory_cleaner
+from utils import directory_cleaner
 from text_organization import speeches_cleaner, find_text_categories
 
 import PySimpleGUI as sg
@@ -43,8 +42,6 @@ dateText = {
     "Macron": 2017,
 }
 
-text_choices = ""
-
 presidents = tuple((dict_names[key] + " " + key) for key in dict_names.keys())
 
 current_state = 0
@@ -52,8 +49,7 @@ current_state = 0
 # 3 : mot le plus prononcé par un président,  4 : choix des textes du chatbot 5 : chatbot
 
 
-menu_def1 = [["File", ["Exit"]]]
-menu_def2 = [["File", ["Matrix", "Exit"]]]
+menu_def = [["File", ["Exit"]]]
 sg.theme("DarkAmber")
 sg.set_options(element_padding=(0, 0))
 
@@ -63,7 +59,7 @@ while current_state < 9:
         speeches = ""
 
         elements = [
-            [sg.Menu(menu_def1, tearoff=True)],
+            [sg.Menu(menu_def, tearoff=True)],
             [
                 sg.Text(
                     "Veuillez selectionner le dossier contenant les discours",
@@ -122,7 +118,7 @@ while current_state < 9:
         choices = ("Fonctionnalités de la partie 1", "Le chatbot")
 
         elements = [
-            [sg.Menu(menu_def1, tearoff=True)],
+            [sg.Menu(menu_def, tearoff=True)],
             [sg.Text("Que voulez vous faire ?")],
             [sg.Listbox(choices, size=(30, len(choices)), key="-FIRSTCHOICE-")],
             [sg.Button("Ok"), sg.Button("Retour")],
@@ -185,7 +181,7 @@ while current_state < 9:
             "Les mots évoqués par tous les présidents",
         )
         elements = [
-            [sg.Menu(menu_def1, tearoff=True)],
+            [sg.Menu(menu_def, tearoff=True)],
             [sg.Text("Que souhaitez-vous afficher ?")],
             [
                 sg.Listbox(
@@ -308,7 +304,7 @@ while current_state < 9:
         choices = presidents
 
         elements = [
-            [sg.Menu(menu_def1, tearoff=True)],
+            [sg.Menu(menu_def, tearoff=True)],
             [sg.Text("Que voulez vous faire ?")],
             [sg.Listbox(choices, size=(30, len(choices)), key="-PRESIDENTS-")],
             [sg.Button("Ok"), sg.Button("Retour")],
@@ -368,7 +364,7 @@ while current_state < 9:
             choices = choices + (ele,)
         choices = ("Tous les textes",) + choices
         elements = [
-            [sg.Menu(menu_def1, tearoff=True)],
+            [sg.Menu(menu_def, tearoff=True)],
             [sg.Text("Quelle(s) catégorie(s) souhaitez vous ?")],
             [sg.Listbox(choices, size=(30, len(choices)), key="-TEXTCHOICE-")],
             [sg.Button("Ok"), sg.Button("Retour")],
@@ -421,7 +417,7 @@ while current_state < 9:
         directory_cleaner(clean_directory)
         speeches_cleaner(user_choice)
         elements = [
-            [sg.Menu(menu_def1, tearoff=True)],
+            [sg.Menu(menu_def, tearoff=True)],
             [sg.Text("Veuillez poser votre question")],
             [sg.InputText()],
             [sg.Button("Ok"), sg.Button("Retour")],
@@ -468,7 +464,7 @@ while current_state < 9:
                         )
                     else:
                         sg.popup(
-                            f"La réponse à votre question est : {generate_answer_to_this(user_choice)}",
+                            f"{generate_answer_to_this(user_choice)}",
                             title="Réponse à votre question",
                             auto_close=True,
                             auto_close_duration=30,

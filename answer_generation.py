@@ -1,4 +1,14 @@
 def scalar_product(matrix_words_and_doc_lines, matrix_question):
+    """
+    Function that calculates the scalar product of two matrices
+
+    Parameters:
+        matrix_words_and_doc_lines (list): Matrix of a document
+        matrix_question (list): Matrix of a question
+
+    Returns:
+        scalar_product (int): Scalar product of the two matrices
+    """
     scalar_product = 0
     for i in range(len(matrix_question[0])):
         if matrix_question[0][i] in matrix_words_and_doc_lines[0]:
@@ -12,6 +22,15 @@ def scalar_product(matrix_words_and_doc_lines, matrix_question):
 
 
 def norm(matrix_line):
+    """
+    Function that calculates the norm of a matrix line
+
+    Parameters:
+        matrix_line (list): Input matrix line
+
+    Returns:
+        norm (float): Norm of the matrix line
+    """
     from math import sqrt
 
     norm = 0
@@ -22,6 +41,16 @@ def norm(matrix_line):
 
 
 def similarity(matrix_words_and_doc_lines, matrix_question):
+    """
+    Function that calculates the cosine similarity between two matrices
+
+    Parameters:
+        matrix_words_and_doc_lines (list): Matrix of a document
+        matrix_question (list): Matrix of a question
+
+    Returns:
+        cosine_similarity (float): Cosine similarity between the two matrices
+    """
     if (norm(matrix_words_and_doc_lines[1][1:]) * norm(matrix_question[1])) == 0:
         return 0
     return scalar_product(matrix_words_and_doc_lines, matrix_question) / (
@@ -30,6 +59,16 @@ def similarity(matrix_words_and_doc_lines, matrix_question):
 
 
 def most_pertinent_doc(matrix, matrix_question):
+    """
+    Function that finds the most pertinent document based on the cosine similarity score
+
+    Parameters:
+        matrix (list): Matrix of a document
+        matrix_question (list): Matrix of a question
+
+    Returns:
+        most_pertinent_doc (str): Most pertinent document based on the cosine similarity score
+    """
     most_pertinent_doc = ""
     most_pertinent_doc_score = 0
     for i in range(1, len(matrix)):
@@ -43,9 +82,19 @@ def most_pertinent_doc(matrix, matrix_question):
 
 
 def most_pertinent_word_related_to_doc(matrix_question, doc):
+    """
+    Function that finds the most pertinent word related to a document
+
+    Parameters:
+        matrix_question(list): tf-idf of the question
+        doc (str): Most pertinent document
+
+    Returns:
+        most_pertinent_word (str): Most pertinent word related to the document
+    """
     from utils import create_file_words_dict
     from words_classifier import not_important_word
-    
+
     non_pertinent_words = not_important_word("./cleaned/")
     words = create_file_words_dict("./cleaned/")[
         doc.split(".")[0] + "_cleaned." + doc.split(".")[1]
@@ -64,6 +113,16 @@ def most_pertinent_word_related_to_doc(matrix_question, doc):
 
 
 def extract_answer(doc, word):
+    """
+    Function that extracts the first phrase containing a word in a document
+
+    Parameters:
+        word (str): A word
+        doc str): A document
+
+    Returns:
+        answer (str): Extracted answer
+    """
     from utils import file_reader
     from text_organization import string_cleaner
 
@@ -72,27 +131,53 @@ def extract_answer(doc, word):
         temp = string_cleaner(ele)
         for words in temp.split(" "):
             if word == words.lower():
-                return ele + "."
+                return ele.rstrip() + "."
     return False
 
-def humanize_answer(question, answer):
-    from random import randint
-    question_starters = {
-        "Comment": ["Après analyse, ","Après réflexion, ","Après étude, "],
-        "Pourquoi": ["Car, ", "Parce que, ", "Puisque, ", "Vu que, "],
-        "Peux-tu": ["Oui, bien sûr!", "Évidemment!", "Bien sûr!", "Oui!", "Tout à fait!"],
-        "Qui": ["Et bien, "],
 
-        }
+def humanize_answer(question, answer):
+    """
+    Function that improve the answer to make it more 'human'
+
+    Parameters:
+        question (str): A question
+        answer (str): An answer to the question
+    Returns:
+        answer (str): Humanized answer
+    """
+    from random import randint
+
+    question_starters = {
+        "Comment": ["Après analyse, ", "Après réflexion, ", "Après étude, "],
+        "Pourquoi": ["Car, ", "Parce que, ", "Puisque, ", "Vu que, "],
+        "Peux-tu": [
+            "Oui, bien sûr!",
+            "Évidemment!",
+            "Bien sûr!",
+            "Oui!",
+            "Tout à fait!",
+        ],
+        "Qui": ["Et bien, "],
+    }
     for ele in question_starters.keys():
         if ele.lower() == question.split()[0].lower():
-            random= randint(0,len(question_starters[ele])-1)
-            answer=answer[1].lower() + answer[2:]
-            answer=question_starters[ele][random] + answer
+            random = randint(0, len(question_starters[ele]) - 1)
+            answer = answer[1].lower() + answer[2:]
+            answer = question_starters[ele][random] + answer
             return answer
     return answer
 
+
 def generate_answer_to_this(question):
+    """
+    Function that generates an answer to a given question
+
+    Parameters:
+        question (str): Input question
+
+    Returns:
+        humanize_answer() (str): Generated answer
+    """
     from words_classifier import search_common_words, tfidf_matrice
     from utils import transpose_this
     from text_organization import tfidf_matrix_of
@@ -106,4 +191,4 @@ def generate_answer_to_this(question):
     answer = extract_answer(pertinent_doc, pertinent_word)
     if not answer:
         return "There is no pertinent answer to this question in the corpus."
-    return humanize_answer(question,answer)
+    return humanize_answer(question, answer)

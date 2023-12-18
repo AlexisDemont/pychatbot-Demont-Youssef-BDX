@@ -1,10 +1,21 @@
 # -*- coding: utf-8 -*-
 
-def directory_cleaner(clean_directory):
-    import glob,os
-    files_to_erase = glob.glob(clean_directory)
+def directory_cleaner(directory_to_clean):
+    """
+    Function that that remove all files from a directory
+
+    Parameters:
+        directory (str): Path to the directory
+
+    Returns:
+        files (list): List of file names
+
+    """
+    from glob import glob
+    from os import remove
+    files_to_erase = glob(directory_to_clean)
     for file in files_to_erase:
-        os.remove(file)
+        remove(file)
 
 def list_of_files(directory, extension, prefix=False):
     import os

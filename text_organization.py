@@ -156,6 +156,15 @@ def speeches_cleaner(prefix=False, directory="./speeches/", extension=".txt"):
 
 
 def dict_score_TFIDF_question(list):
+    """
+    Function that calculates the TF-IDF score for each word in a list
+
+    Parameters:
+        list (list): List of words
+
+    Returns:
+        DictTFIDF (dict): Dictionary with words as keys and their corresponding TF-IDF scores as values
+    """
     from utils import calculate_idf, calculate_occurence_words
     string = "".join(ele + " " for ele in list)
     DictIDF = calculate_idf(directory="./cleaned/", extension=".txt")
@@ -169,6 +178,15 @@ def dict_score_TFIDF_question(list):
 
 
 def tfidf_matrix_of(string):
+    """
+    Function that calculates the TF-IDF matrix for a given string
+
+    Parameters:
+        string (str): Input string
+
+    Returns:
+        tfidf_matrix (liste): List of tuples containing the TF-IDF matrix of the string
+    """
     DictTFIDF = dict_score_TFIDF_question(string)
     tfidfTuple = ([], [])
     for key, val in DictTFIDF.items():
@@ -179,5 +197,14 @@ def tfidf_matrix_of(string):
         tfidfMatrix.append(element)
     return tfidfMatrix
 
-def find_text_categories(directory,extension):
+def find_text_categories(directory,extension='txt'):
+    """
+    Function that find all the categories of text in a directory
+    Parameters:
+        directory (str): Path to the directory containing the text files
+        extension (str): Extension of the text files
+
+    Returns:
+         (set): Set of the categories of text in the directory 
+    """
     return {ele.split('_')[0] for ele in list_of_files(directory,extension) }
