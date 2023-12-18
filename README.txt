@@ -20,6 +20,7 @@ fois
 Fonctionnalités de la seconde partie:
 
 Un chatbot pouvant répondre à des questions en se basant sur le contenu de textes classés par catégorie.
+Il est possible d'ajouter des textes en respecant le nommage suivant Categorie_nomauteur[nbtexteoptionnel].txt
 
 Instruction d'utilisation du code:
 
