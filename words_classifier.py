@@ -115,6 +115,11 @@ def not_important_word(directory="./cleaned/"):
         "celle",
         "ceux",
         "celles",
+        "qui",
+        "que", 
+        "quoi",
+        "dont",
+        "où",
     }
     not_importants_words = not_importants_words.union(add_non_pertinent_words)
     return not_importants_words

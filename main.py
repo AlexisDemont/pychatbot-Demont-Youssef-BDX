@@ -168,7 +168,6 @@ while current_state < 9:
                 break
         window.close()
 
-    # get the index of the user_choice
     if current_state == 2:
         directory_cleaner(clean_directory)
         speeches_cleaner()
