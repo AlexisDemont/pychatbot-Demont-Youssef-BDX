@@ -229,7 +229,7 @@ while current_state < 9:
                     ):
                         sg.popup(
                             f"Les mots les moins importants du corpus sont : {not_important_word(directory='./cleaned/')}",
-                            title="Mots les plus importants",
+                            title="Mots les moins importants",
                             auto_close=True,
                             auto_close_duration=30,
                             keep_on_top=True,
@@ -241,7 +241,7 @@ while current_state < 9:
                     ):
                         sg.popup(
                             f"Les mots les plus importants du corpust sont : {most_important_word(directory='./cleaned/')}",
-                            title="Mots les moins importants",
+                            title="Mots les plus importants",
                             auto_close=True,
                             auto_close_duration=30,
                             keep_on_top=True,
