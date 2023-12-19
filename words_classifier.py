@@ -1,5 +1,8 @@
+# -*- coding: utf-8 -*-
+
 from utils import file_reader, list_of_files, tfidf_matrice, calculate_occurence_words
-from text_organization import regroup_text_from_similar_speakers, list_of_names_fillnames, extract_the_name_from_this   
+
+
 def most_important_word(directory="./cleaned/"):
     """
     Function that returns a set of the most important words based on the sum of their TfIdf scores across all texts.
@@ -48,9 +51,83 @@ def not_important_word(directory="./cleaned/"):
                 is_null = False
         if is_null:
             not_importants_words.add(str(current_word))
+    # Pour pallier les lacunes de la formule donnée et afin de rendre les réponses plus intéressantes, nous enrichissons artificiellment la liste des mots non pertinents
+    add_non_pertinent_words = {
+        "quel",
+        "quelle",
+        "quels",
+        "quelles",
+        "il",
+        "elle",
+        "nous",
+        "ils",
+        "elles",
+        "vous",
+        "je",
+        "tu",
+        "on",
+        "ce",
+        "cet",
+        "cette",
+        "ces",
+        "mon",
+        "ma",
+        "mes",
+        "ton",
+        "ta",
+        "tes",
+        "son",
+        "sa",
+        "ses",
+        "notre",
+        "nos",
+        "votre",
+        "vos",
+        "leur",
+        "leurs",
+        "le",
+        "la",
+        "les",
+        "lui",
+        "leur",
+        "eux",
+        "y",
+        "en",
+        "moi",
+        "toi",
+        "soi",
+        "mien",
+        "tien",
+        "sien",
+        "nôtre",
+        "vôtre",
+        "leur",
+        "miens",
+        "tiens",
+        "siens",
+        "nôtres",
+        "vôtres",
+        "leurs",
+        "ceci",
+        "cela",
+        "ça",
+        "celui",
+        "celle",
+        "ceux",
+        "celles",
+        "qui",
+        "que", 
+        "quoi",
+        "dont",
+        "où",
+    }
+    not_importants_words = not_importants_words.union(add_non_pertinent_words)
     return not_importants_words
 
+
 def find_who_said_first_this(word, date_text, directory="./cleaned/"):
+    from text_organization import extract_the_name_from_this
+
     """
     Find the first speaker who said a specific word.
 
@@ -85,6 +162,8 @@ def find_who_said_first_this(word, date_text, directory="./cleaned/"):
 
 
 def find_all_pertinent_said_words(directory="./cleaned/"):
+    from text_organization import regroup_text_from_similar_speakers
+
     """
     Find all the pertinent words said by the speakers.
 
@@ -114,7 +193,10 @@ def find_all_pertinent_said_words(directory="./cleaned/"):
             temp_set.clear()
     return said_words
 
+
 def speaker_of_word(word):
+    from text_organization import list_of_names_fillnames
+
     """
     Find the speakers who said a specific word.
 
@@ -126,15 +208,18 @@ def speaker_of_word(word):
 
     """
     word = word.lower()
-    directory = './cleaned/'
-    list_files = list_of_files('./cleaned', '.txt')
-    files_tf = {file: calculate_occurence_words(file_reader(file, directory)) for file in list_files}
+    directory = "./cleaned/"
+    list_files = list_of_files("./cleaned", ".txt")
+    files_tf = {
+        file: calculate_occurence_words(file_reader(file, directory))
+        for file in list_files
+    }
     speaker = {}
     presidents = list_of_names_fillnames()
     for filename in files_tf.keys():
         if word in files_tf[filename]:
             for president in presidents:
-                if president.split(' ')[1] in filename:
+                if president.split(" ")[1] in filename:
                     if president in speaker:
                         speaker[president] += files_tf[filename][word]
                     else:
@@ -180,7 +265,7 @@ def calculate_president_most_said_word(president_name):
     president_most_said_words = set()
     max_occurence = 0
     exist = 0
-
+    non_important_word = not_important_word()
     president_name = president_name.lower()
     list_existing_files = list_of_files("./cleaned", ".txt")
     for file in list_existing_files:
@@ -195,9 +280,36 @@ def calculate_president_most_said_word(president_name):
     if not exist:
         raise ValueError("President name not found")
     for key in president_word_occurence.keys():
-        if president_word_occurence[key] > max_occurence:
-            max_occurence = president_word_occurence[key]
-            president_most_said_words = {key}
-        elif president_word_occurence[key] == max_occurence:
-            president_most_said_words.add(key)
+        if key not in non_important_word and len(key) > 1:
+            if president_word_occurence[key] > max_occurence:
+                max_occurence = president_word_occurence[key]
+                president_most_said_words = {key}
+            elif president_word_occurence[key] == max_occurence:
+                president_most_said_words.add(str(key))
     return president_most_said_words
+
+
+def search_common_words(string, directory):
+    from text_organization import string_cleaner
+    from utils import create_file_words_dict
+
+    """
+        Function that returns a list of commons words between the question and the documents
+
+        Parameters:
+            A string and directory
+
+        Returns:
+            list of common words
+
+        """
+    WordString = string_cleaner(string)
+
+    file_words = create_file_words_dict(directory)
+    all_words = set().union(*file_words.values())
+
+    CommonWords = []
+    for element in WordString.split():
+        if element in all_words:
+            CommonWords.append(element)
+    return CommonWords

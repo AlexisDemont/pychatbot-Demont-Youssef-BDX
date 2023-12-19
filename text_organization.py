@@ -1,5 +1,5 @@
-import os
-import re
+# -*- coding: utf-8 -*-
+
 from utils import list_of_files
 
 dict_names = {
@@ -10,7 +10,6 @@ dict_names = {
     "Mitterrand": "François",
     "Sarkozy": "Nicolas",
 }
-
 
 
 def extract_the_name_from_this(filename):
@@ -24,9 +23,9 @@ def extract_the_name_from_this(filename):
         name (str): Name of the speaker
     """
     name = filename
-    if '_' in name:
+    if "_" in name:
         name = name.split("_")[1]
-    if '.' in name:
+    if "." in name:
         name = name.split(".")[0]
     for character in name:
         if character.isnumeric():
@@ -83,14 +82,14 @@ def find_what_is_the_full_name_of(name, dict_names):
         full_name (str): Full name of the given name
     """
     name = extract_the_name_from_this(name)
-    full_name = 'Anonyme Anonyme'
+    full_name = "Anonyme Anonyme"
     for key in dict_names:
         if name in key:
             full_name = str(dict_names[name] + " " + name)
     return str(full_name)
 
 
-def regroup_text_from_similar_speakers(directory='cleaned',extension='.txt'):
+def regroup_text_from_similar_speakers(directory="cleaned", extension=".txt"):
     """
     Function that regroups text files from similar speakers into a dictionary
 
@@ -109,65 +108,103 @@ def regroup_text_from_similar_speakers(directory='cleaned',extension='.txt'):
     return dict_files
 
 
-def speeches_to_lowercase(directory, extension):
+def string_cleaner(string):
     """
-    Function that converts speeches to lowercase
+    Function that converts a string to clean text
 
     Parameters:
-        directory (str): Path to the directory containing the speeches
-        extension (str): Extension of the speech files
+        string (str): String to clean
+
+    Returns:
+        string (str): Cleaned string
+    """
+    from re import sub
+    accent_dict = {"à": "a", "â": "a", "é": "e", "è": "e", "ê": "e", "ë": "e", "î": "i", "ï": "i", "ô": "o", "ö": "o", "ù": "u", "û": "u", "ü": "u", "ç": "c"}
+    string = string.lower()
+    for character in string:
+        if not (character.isalpha()) and not (character.isnumeric()):
+            string = string.replace(character, " ")
+    for character in accent_dict:
+        string = string.replace(character, accent_dict[character])
+    string = sub(" +", " ", string)
+    string = string.lstrip()
+    return string
+
+
+def speeches_cleaner(prefix=False, directory="./speeches/", extension=".txt"):
+    """
+    Function that converts speeches to lowercase and remove specials characters
+
+    Parameters:
+        prefix (str): Category of files
+        directory (str): Path to the directory containing the lowercase text files
+        extension (str): Extension of the lowercase text files
 
     Returns:
         None
     """
-    files_names = list_of_files(directory, extension)
+    files_names = list_of_files(directory, extension,prefix)
     for name in files_names:
-        new_name = name.split('.')[0] + '_lowercased.txt'
-        with open(directory +'/' + name, 'r') as raw_text, open('./cleaned/' + new_name, 'w') as minimized_text:
+        new_name = name.split(".")[0] + "_cleaned.txt"
+        with open(directory + "/" + name, "r") as raw_text, open(
+            "./cleaned/" + new_name, "w"
+        ) as cleaned_text:
             for line in raw_text:
-                line = line.lower()
-                minimized_text.write(line)
+                line = string_cleaner(line)
+                cleaned_text.write(line)
     return
 
 
-def lowercase_to_clean(directory='./cleaned/', extension='.txt'):
+def dict_score_TFIDF_question(list):
     """
-    Function that converts lowercase text to clean text
+    Function that calculates the TF-IDF score for each word in a list
 
     Parameters:
-        directory (str): Path to the directory containing the lowercase text files
-        extension (str): Extension of the lowercase text files
+        list (list): List of words
 
     Returns:
-        None
+        DictTFIDF (dict): Dictionary with words as keys and their corresponding TF-IDF scores as values
     """
-    files_names = list_of_files(directory, extension)
-    for name in files_names:
-        new_name = name.replace('lowercased', 'cleaned')
-        if 'lowercased' in name:
-            with open(directory + name, 'r') as lowercased_text, open(directory + new_name, 'w') as cleaned_text:
-                for line in lowercased_text:
-                    for character in line:
-                        if not (character.isalpha()) and not (character.isnumeric()):
-                            line = line.replace(character, ' ')
-                    line = re.sub(' +', ' ', line)
-                    line = line.lstrip()
-                    cleaned_text.write(line)
-            os.remove(directory + name)
-    return
+    from utils import calculate_idf, calculate_occurence_words
+    string = "".join(ele + " " for ele in list)
+    DictIDF = calculate_idf(directory="./cleaned/", extension=".txt")
+    DictTFIDF = calculate_occurence_words(string)
+    for key, val in DictTFIDF.items():
+        if key in DictIDF:
+            DictTFIDF[key] = val * DictIDF[key]
+        else:
+            DictTFIDF[key] = 0
+    return DictTFIDF
 
 
-def speeches_cleaner(directory='./speeches/', extension='.txt'):
+def tfidf_matrix_of(string):
     """
-    Function that converts speeches to lowercase and then them
+    Function that calculates the TF-IDF matrix for a given string
 
     Parameters:
-        directory (str): Path to the directory containing the lowercase text files
-        extension (str): Extension of the lowercase text files
+        string (str): Input string
 
     Returns:
-        None
+        tfidf_matrix (liste): List of tuples containing the TF-IDF matrix of the string
     """
-    speeches_to_lowercase(directory, extension)
-    lowercase_to_clean()
-    return
+    DictTFIDF = dict_score_TFIDF_question(string)
+    tfidfTuple = ([], [])
+    for key, val in DictTFIDF.items():
+        tfidfTuple[0].append(key)
+        tfidfTuple[1].append(val)
+    tfidfMatrix = []
+    for element in tfidfTuple:
+        tfidfMatrix.append(element)
+    return tfidfMatrix
+
+def find_text_categories(directory,extension='txt'):
+    """
+    Function that find all the categories of text in a directory
+    Parameters:
+        directory (str): Path to the directory containing the text files
+        extension (str): Extension of the text files
+
+    Returns:
+         (set): Set of the categories of text in the directory 
+    """
+    return {ele.split('_')[0] for ele in list_of_files(directory,extension) }

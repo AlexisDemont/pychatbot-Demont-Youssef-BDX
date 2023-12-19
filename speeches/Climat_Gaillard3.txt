@@ -1,0 +1,79 @@
+Les travaux évoqués précédemment sur l’intégration du climat comme ressource et
+l’utilisation des énergies naturelles dans le but de minimiser le recourt aux énergies
+fossiles pour le chauffage et la climatisation ont eu une influence déterminante sur
+l’émergence de la conception bioclimatique en architecture. Parmi les acteurs à
+l’origine de cette méthode de conception, on trouve l’architecte Victor Olgyay
+(1910-1970), qui a travaillé à adapter les connaissances de la climatologie à la
+conception architecturale avec son frère jumeau Aladár Olgyay. Tout un pan de leurs
+recherches a consisté à étudier les protections solaires (brise-soleil, auvent,
+persienne…) et les stratégies permettant d’éviter de capter le rayonnement solaire, qui
+sont présentées dans un ouvrage publié en 1957. Victor Olgyay a formalisé des
+méthodes permettant d’intégrer les facteurs climatiques et les données
+météorologiques dans les processus de conception. Le premier article qu’il publie sur le
+sujet date de 1951. Il est intitulé « The Temperate house » (« La Maison tempérée ») et
+s’appuie, entre autres, sur les travaux de Landsberg, qu’il mentionne. L’article porte sur
+la conception d’une maison individuelle à partir de l’exposition solaire, le but étant de
+produire une ambiance intérieure confortable par des « moyens naturels ». Olgyay
+affirme que l’utilisation de l’énergie solaire a été négligée et que
+tout ce rayonnement solaire non converti signifie une immense quantité d’énergie
+naturelle dont le concepteur doit se soucier. Son problème particulier est de
+construire un abri qui s’adaptera à la variation saisonnière, quotidienne et horaire
+de l’intensité du rayonnement solaire. 
+Il apparaît dans cet extrait que l’énergie du climat non utilisée est perdue, comme si le
+concepteur qui ne prenait pas conscience de cette ressource climatique était contraint
+de la gaspiller inutilement.
+Dans Design with Climate, son ouvrage majeur de 1963 à l’origine de la popularisation du
+terme « bioclimatique », Victor Olgyay prolonge et complexifie cette intuition. Dans la
+continuité de son article de 1951, il reproche l’emploi irréfléchi des systèmes de
+conditionnement d’air, qui sont dispendieux en énergie, et définit la démarche de
+conception de l’architecte en ces termes :
+L’objectif de la conception thermique d’une structure est d’établir un
+environnement intérieur qui se rapproche le plus des conditions de confort dans un
+environnement climatique donné. En termes d’architecture, cela signifie que la
+planification et la structure d’un bâtiment doivent utiliser les possibilités naturelles
+pour améliorer les conditions sans l’aide d’appareils mécaniques.
+Le but du concepteur est, selon lui, de concevoir une construction « climatiquement
+équilibrée ». Il écrit à ce propos :
+Toute énergie thermique captée pendant les périodes de demande de chauffage
+[underheated periods] réduira les coûts de chauffage ; toute quantité de chaleur
+empêchée d’atteindre l’intérieur pendant les moments de surchauffe [overheated
+times] réduira les dépenses de refroidissement.
+Le problème de la conception bioclimatique en climat tempéré consiste à établir un
+équilibre entre les périodes où les énergies incidentes du climat doivent être captées et
+celles où ces énergies doivent être défléchies et maintenues à l’extérieur par des
+protections appropriées. Une construction ou un aménagement en climat tempéré doit
+répondre à ces besoins apparemment contradictoires et continuellement variables. En
+pratique, le climat apparaît alternativement comme une ressource et une
+antiressource : le soleil, durant certaines périodes de l’année dans les climats tempérés,
+et durant toute l’année dans les climats tropicaux ou arides, est une ressource qu’il faut
+éviter de capter, afin de ne pas augmenter l’échauffement des parois. Ainsi, la difficulté
+consiste à corréler l’utilisation des énergies issues du climat aux périodes durant
+lesquelles celles-ci sont nécessaires et désirées.
+Pour Olgyay comme pour d’autres architectes par la suite, l’étude du rayonnement
+solaire donne une première approximation des caractéristiques d’un climat, mais
+l’ensoleillement n’est qu’une ressource climatique parmi d’autres : le vent, mais aussi
+l’amplitude des températures ou la faible humidité absolue sont des facteurs et des
+éléments climatiques qui constituent une ressource potentiellement exploitable. Le
+vent et les brises peuvent générer un apport bénéfique pour le rafraîchissement dans
+certains climats ou durant une période de l’année dans les climats tempérés, mais ils
+peuvent à l’inverse être source de déperditions thermiques importantes. Victor Olgyay
+a ainsi posé les problèmes de planification urbaine dans les climats froids et tempérés
+en essayant de dévier la circulation des vents indésirables, tout en admettant les vents
+favorables en période chaude, notamment en climat tempéré. Ce problème est résolu
+simplement si la direction des vents dominants change au cours de l’année ou par
+l’emploi de haies brise-vent à feuillage caduc. Dans cette perspective, de nombreux
+chercheurs se sont consacrés à l’étude des problèmes d’écoulement du vent à partir des
+années 1970, comme Alain Guyot et Jacques Gandemer en France.
+Certains climats sont susceptibles de fournir d’autres ressources climatiques, comme
+une faible humidité absolue de l’air, également identifiée par Olgyay. La faible
+humidité de l’air permet de favoriser le rafraîchissement nocturne des constructions
+dans les climats chauds et secs, et dans les zones désertiques, par rayonnement
+thermique vers la voûte céleste. Ce phénomène est naturellement à l’œuvre dans de
+nombreuses régions du monde, mais il peut être considérablement favorisé par le choix
+de matériaux très émissifs au rayonnement de grande longueur d’onde. L’architecte
+israélien Baruch Givoni (1920-2020) a utilisé ce phénomène afin de produire ce qu’il
+nomme un « rafraîchissement radiatif » (radiant cooling) dans les climats chauds et
+secs. La diversité des ressources climatiques identifiées par Olgyay et ceux qui ont
+prolongé ses travaux illustrent le fait que le climat n’est pas une ressource univoque :
+chaque type de climat dispose de ressources caractérisées, qui peuvent être décorrélées
+des besoins qui changent périodiquement (saisons, alternance jour/nuit …).

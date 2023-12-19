@@ -1,0 +1,48 @@
+En Espagne, la directive 2003/87 établissant un système d’échange de quotas d’émission
+de gaz à effet de serre a été transposée par la loi 1/2005 du 9 mars 2005 régulant le régime
+d’échange de droits d’émission de gaz à effet de serre. Cette dernière fait obligation à tout
+exploitant d’une unité de production de puissance thermique supérieure à 20 MW de restituer, avant le 30 avril de chaque année civile, un nombre de quotas d’émission correspondant au total des émissions de gaz à effet de serre vérifiées de l’installation pendant l’année
+précédente. Son article 16 prévoit une attribution gratuite de quotas pour la période allant
+de 2005 à 2008. En parallèle, la loi 54/1997 du 27 novembre 1997 sur le secteur électrique
+organise un marché de gros de l’électricité dans lequel tous les producteurs dont l’offre a
+été acceptée reçoivent le même prix, dit « marginal », correspondant au prix offert par l’exploitant de la dernière unité de production acceptée. L’article 2 du décret-loi royal 3/2006
+instaure une réduction de la rémunération de l’activité de production d’électricité d’un 
+montant équivalent à la valeur des quotas d’émission octroyés gratuitement. L’arrêté ministériel ITC/3315/2007 du 15 novembre 2007 met en œuvre cette réduction de rémunération.
+Les sociétés requérantes au principal sont des entreprises productrices d’électricité en
+Espagne ayant introduit devant la chambre du contentieux administratif de l’Audiencia
+Nacional des recours visant à faire constater la nullité de l’arrêté ministériel ITC/3315/2007
+en soutenant, notamment, qu’il serait contraire à la directive 2003/87 en ce qu’il neutraliserait la gratuité des quotas d’émission. Ces recours ont été rejetés par l’Audiencia Nacional
+considérant que cet arrêté ne neutralisait pas la gratuité des quotas d’émission et les
+sociétés requérantes ont introduit des pourvois en cassation devant le Tribunal Supremo.
+Celui-ci émettant des doutes quant à la notion d’« allocation à titre gratuit » a décidé de
+poser une question préjudicielle à la Cour de Justice afin de savoir si l’article 10 de la
+directive 2003/87 doit être interprété en ce sens qu’il s’oppose à l’application de mesures
+législatives nationales, telles que celles en cause dans les affaires au principal, dont l’objet
+et l’effet sont de réduire la rémunération de l’activité de production d’électricité du montant dont ladite rémunération a augmenté du fait de l’intégration de la valeur des quotas
+d’émission alloués à titre gratuit, en tant que coût supplémentaire de production, dans les
+prix des offres de vente sur le marché de gros d’électricité.
+La Cour commence par remarquer que les États membres peuvent, en principe, adopter
+des mesures de politique économique, telles qu’un contrôle des prix pratiqués sur les
+marchés de l’énergie, à condition que de telles mesures ne neutralisent pas le principe
+de l’allocation à titre gratuit des quotas d’émission, ni ne portent atteinte aux objectifs
+de la directive. En l’occurrence, lesdits producteurs d’électricité ont inclus, dans le prix
+de leurs offres sur le marché de gros de l’électricité, la valeur des quotas d’émission,
+bien que ceux-ci leur aient été attribués à titre gratuit conduisant à la réalisation de
+bénéfices exceptionnels.
+La Cour estime que la notion de gratuité des quotas ne s’oppose pas à une réglementation réduisant la rémunération des producteurs d’électricité afin de compenser les
+bénéfices exceptionnels résultant de l’allocation à titre gratuit des quotas d’émission, à
+condition qu’il ne soit pas porté atteinte aux objectifs de la directive. Sur ce point, elle
+observe que l’objectif principal de la directive est de réduire, de manière substantielle,
+les émissions de gaz à effet de serre auxquels s’ajoutent les sous-objectifs de la préservation du développement économique et de l’emploi ainsi que ceux de l’intégrité du
+marché intérieur et des conditions de concurrence. Sur ces points, elle estime que l’allocation des quotas d’émission à titre gratuit était une mesure transitoire visant à éviter
+la perte de compétitivité des entreprises et ne concerne donc pas directement l’objectif
+environnemental de réduction des émissions. Elle ajoute que la réglementation en cause
+affecte non pas le marché des quotas d’émission, mais les bénéfices exceptionnels
+perçus par l’ensemble des producteurs d’électricité en Espagne. Enfin, elle estime que
+la réglementation en cause ne nuit pas à l’objectif environnemental de la directive dans
+la mesure où elle n’a pas pour effet de dissuader les producteurs d’électricité de réduire
+leurs émissions de gaz à effet de serre.
+Eu égard à l’ensemble de ces considérations, la Cour conclut que l’article 10 de la directive 2003/87 doit être interprété en ce sens qu’il ne s’oppose pas à l’application de
+mesures législatives nationales telles que celles en cause dans les affaires au principal,
+dont l’objet et l’effet sont de réduire la rémunération de l’activité de production d’électricité du montant de la valeur des quotas d’émission alloués à titre gratuit dans les prix des
+offres de vente sur le marché de gros de l’électricité.
