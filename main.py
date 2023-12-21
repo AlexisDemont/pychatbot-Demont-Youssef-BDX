@@ -50,7 +50,7 @@ current_state = 0
 
 
 menu_def = [["File", ["Exit"]]]
-sg.theme("DarkAmber")
+sg.theme("Reddit")
 sg.set_options(element_padding=(0, 0))
 
 # nb : l'utilisation de break est recommandé dans la documentation de pysimplegui
@@ -170,7 +170,7 @@ while current_state < 9:
 
     if current_state == 2:
         directory_cleaner(clean_directory)
-        speeches_cleaner()
+        speeches_cleaner(speeches)
         choices = (
             "Les mots les moins importants des documents",
             "Les mots ayant le score TD-IDF le plus élevé",
@@ -414,7 +414,7 @@ while current_state < 9:
 
     if current_state == 5:
         directory_cleaner(clean_directory)
-        speeches_cleaner(user_choice)
+        speeches_cleaner(speeches, user_choice)
         elements = [
             [sg.Menu(menu_def, tearoff=True)],
             [sg.Text("Veuillez poser votre question")],
@@ -463,7 +463,7 @@ while current_state < 9:
                         )
                     else:
                         sg.popup(
-                            f"{generate_answer_to_this(user_choice)}",
+                            f"{generate_answer_to_this(user_choice, speeches)}",
                             title="Réponse à votre question",
                             auto_close=True,
                             auto_close_duration=30,

@@ -112,7 +112,7 @@ def most_pertinent_word_related_to_doc(matrix_question, doc):
     return most_pertinent_word
 
 
-def extract_answer(doc, word):
+def extract_answer(doc, word, directory):
     """
     Function that extracts the first phrase containing a word in a document
 
@@ -126,7 +126,7 @@ def extract_answer(doc, word):
     from utils import file_reader
     from text_organization import string_cleaner
 
-    doc = file_reader(doc, "./speeches/")
+    doc = file_reader(doc, directory)
     for ele in doc.split("."):
         temp = string_cleaner(ele)
         for words in temp.split(" "):
@@ -168,7 +168,7 @@ def humanize_answer(question, answer):
     return answer
 
 
-def generate_answer_to_this(question):
+def generate_answer_to_this(question,directory):
     """
     Function that generates an answer to a given question
 
@@ -188,7 +188,7 @@ def generate_answer_to_this(question):
     if not pertinent_doc:
         return "There is no pertinent answer to this question in the corpus."
     pertinent_word = most_pertinent_word_related_to_doc(tf_idf_question, pertinent_doc)
-    answer = extract_answer(pertinent_doc, pertinent_word)
+    answer = extract_answer(pertinent_doc, pertinent_word, directory)
     if not answer:
         return "There is no pertinent answer to this question in the corpus."
     return humanize_answer(question, answer)
