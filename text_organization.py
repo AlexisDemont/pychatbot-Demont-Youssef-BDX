@@ -33,7 +33,7 @@ def extract_the_name_from_this(filename):
     return name
 
 
-def list_of_names(directory="./speeches", extension=".txt"):
+def list_of_names(directory, extension=".txt"):
     """
     Function that returns a set of the names of the speakers in the directory
 
@@ -131,7 +131,7 @@ def string_cleaner(string):
     return string
 
 
-def speeches_cleaner(prefix=False, directory="./speeches/", extension=".txt"):
+def speeches_cleaner(directory,prefix=False, extension=".txt"):
     """
     Function that converts speeches to lowercase and remove specials characters
 
